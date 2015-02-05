@@ -701,7 +701,7 @@ Change widths as necessary
   .g2 {width:64.667%;}
   .g3 {width:98.0%}
   .compare{
-    width:31.333%
+    width:31.333%;
     margin-left: 18%;
   }
 }
