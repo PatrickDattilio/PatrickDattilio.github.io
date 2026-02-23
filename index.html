@@ -7,18 +7,18 @@
   <meta name="description" content="Patrick Dattilio — Android Developer at SoundCloud. Running for Washington County Democratic Central Committee." />
   <meta property="og:title" content="Patrick Dattilio - Android Developer" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://patrickdattilio.com" />
+  <meta property="og:url" content="https://dattil.io" />
   <meta property="og:description" content="Github, Twitter links, more coming soon." />
   <meta property="og:site_name" content="Patrick Dattilio - Android Developer" />
   <meta property="og:image" content="https://www.gravatar.com/avatar/9fce92fda4c422852ef079b8efc4e645?s=200" />
   
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@PatrickDattilio">
-  <meta name="twitter:domain" content="patrickdattilio.com">
-  <meta name="twitter:title" content="patrickdattilio.com">
+  <meta name="twitter:domain" content="dattil.io">
+  <meta name="twitter:title" content="dattil.io">
   <meta name="twitter:description" content="Android Developer at SoundCloud. Running for Washington County Democratic Central Committee.">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/9fce92fda4c422852ef079b8efc4e645?s=200">
-  <meta name="twitter:url" content="https://patrickdattilio.com">
+  <meta name="twitter:url" content="https://dattil.io">
   
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="css/normalize.min.css">
@@ -35,6 +35,21 @@
                     <li><a href="https://github.com/PatrickDattilio">GitHub</a></li>
                 </ul>
             </header>
+            <section class="intake-form-wrap">
+                <h3>Get involved</h3>
+                <p>Sign up for updates or volunteer.</p>
+                <form id="intake-form" class="intake-form" action="https://formspree.io/f/mzdajjed" method="POST">
+                    <input type="text" name="name" placeholder="Name" aria-label="Name">
+                    <input type="email" name="email" placeholder="Email *" required aria-label="Email">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="volunteer" value="yes">
+                        I'd like to volunteer
+                    </label>
+                    <button type="submit" class="btn btn-submit">Sign up</button>
+                </form>
+                <p id="form-success" class="form-message form-success" hidden>Thanks! We'll be in touch.</p>
+                <p id="form-error" class="form-message form-error" hidden>Something went wrong. Please try again.</p>
+            </section>
         </div>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-15DMLC6CHT"></script>
         <script>
@@ -42,6 +57,37 @@
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-15DMLC6CHT');
+        </script>
+        <script>
+          document.getElementById('intake-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            var formData = new FormData(form);
+            var submitBtn = form.querySelector('.btn-submit');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            fetch(form.action, {
+              method: 'POST',
+              body: formData,
+              headers: { 'Accept': 'application/json' }
+            })
+            .then(function(r) {
+              if (r.ok) {
+                document.getElementById('form-success').hidden = false;
+                form.hidden = true;
+                if (typeof gtag === 'function') {
+                  gtag('event', 'form_submit', { event_category: 'engagement', event_label: 'intake_form' });
+                }
+              } else {
+                throw new Error('Submit failed');
+              }
+            })
+            .catch(function() {
+              document.getElementById('form-error').hidden = false;
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Sign up';
+            });
+          });
         </script>
     </body>
 </html>
