@@ -227,6 +227,15 @@ body {width: 92%; margin: 0 auto} /* Center page without wrapper */
 .about-wrap p:last-child{
   margin-bottom: 0;
 }
+.about-wrap .mission-statement{
+  margin: 0 0 1.5em;
+  padding: 0 0 0 1em;
+  border-left: 4px solid #E74C3C;
+  font-size: 1.1em;
+  font-style: italic;
+  color: #e8e8e8;
+  line-height: 1.6;
+}
 
 /* Intake form */
 .intake-form-wrap{
